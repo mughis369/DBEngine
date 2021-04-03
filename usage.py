@@ -1,20 +1,10 @@
-# DBEngine is a CURD wrapper for SQLAlchemy
+from db_engine import DBEngine
 
-By using this wrapper one can easily implement all 
-curd operations by simply passing the SQL queries on Data Modals,
-In insert you need to pass a dictionary of column names as keys and 
-their value to insert as value of dictionary.
 
-# Usage
+if __name__=="__main__":
+    engine = DBEngine()
 
-Initializing the DBEngine
-```engine = DBEngine()```
-
-Note: This instance should only be created once and after that you can access the engine functionalioty by using ```_engine``` object of ```DBEngine```
-
-For example using DBEngine to insert values
-```
-	#insert query
+	# insert query
     flag = DBEngine._engine.insert(
         [
             {
@@ -35,21 +25,15 @@ For example using DBEngine to insert values
         ], 
         'tsettable'
     )
-```
-
-Similary for the select query
-```
-    #select query
-    data = DBEngine._engine.select(
+    
+    #delete query    
+    DBEngine._engine.delete(
         {
             'tablename': 'tsettable',
-            'query': 'select * from tsettable'
+            'query': 'DELETE from tsettable where id=1'
         }
     )
-```
 
-As you can see it's barely an abstraction of an ORM. For the update query
-```
     #update query
     DBEngine._engine.set(
         {
@@ -68,17 +52,11 @@ As you can see it's barely an abstraction of an ORM. For the update query
             }
         }
     )
-```
 
-And finally for delete query use it as
-```
-    #delete query    
-    DBEngine._engine.delete(
+    #select query
+    data = DBEngine._engine.select(
         {
             'tablename': 'tsettable',
-            'query': 'DELETE from tsettable where id=1'
+            'query': 'select * from tsettable'
         }
     )
-``` 
-
-Note: DBEngine uses logger.py to log for system operations.
